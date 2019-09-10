@@ -1,0 +1,34 @@
+.Post {
+    width: 140px;
+    height: 160px;
+    padding: 0;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    margin: 4px 2px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: rgb(9, 187, 128);
+    color: rgb(4, 75, 31);
+    font-size: 15px;
+}
+
+.Post:hover,
+.Post:active {
+    opacity: 0.6;
+}
+
+.Info {
+    margin: 16px 0;
+    color: rgb(22, 82, 57);
+}
+
+@media (min-width: 520px) {
+    .Post {
+        width: 197px;
+        height: 200px;
+        padding: 16px;
+        margin: 10px 10px;
+    }   
+}

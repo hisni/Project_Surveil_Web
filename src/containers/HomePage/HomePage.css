@@ -1,0 +1,57 @@
+.ints{
+    width: 45%;
+    float: left;
+}
+
+.districts{
+    width: 55%;
+    float: left;
+}
+
+.bg {
+    min-height: 87vh;
+    /* background-image: url("../../assets/images/Map-min.png"); */
+    height: 450px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+
+.bg::after {
+    display: block;
+}
+
+@media (max-width: 519px) {
+    .Map{
+        display: none;
+    }
+}
+
+@media (min-width: 520px) {
+    .ints{
+        width: 30%;
+        margin: 10% 0;
+        float: left;
+    }
+
+    .Map{
+        width: 40%;
+        float: left;
+    }
+
+    .districts{
+        width: 30%;
+        float: left;
+    }
+
+    .bg {
+        background-image: none;
+        margin-top: -25px;
+    }
+
+    .bg::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}

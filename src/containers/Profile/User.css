@@ -1,0 +1,43 @@
+.User {
+    display: block;
+    flex-flow: row;
+    justify-content: center;
+    min-height: 84vh;
+}
+
+.Post {
+    display: block;
+    flex-flow: row;
+    justify-content: center;
+    width: 100%;
+    margin: auto;    
+}
+
+.Post h1,
+.Post p{
+    color: #085034;
+}
+
+.Title {
+    color: #085034;
+    display: block;
+    flex-flow: row;
+    justify-content: center;
+    width: 90%;
+    margin: auto;
+    padding: 10px;
+    padding-top: 20px;
+    box-sizing: border-box;
+    border-bottom: 3px solid rgb(65, 65, 65);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.Posts {
+    padding-top:30px; 
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+}

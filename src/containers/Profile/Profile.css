@@ -1,0 +1,70 @@
+.Profile {
+    display: block;
+    flex-flow: row;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.UserManagements {
+    display: block;
+    flex-flow: row;
+    justify-content: center;
+    width: 90%;
+    margin: auto;
+}
+
+.Controls{
+    display: flex;
+    flex-flow: row wrap;
+    float: left;
+    width: 100%;
+}
+
+.Posts {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+}
+
+.Title {
+    height: 50px;
+    text-align: center;
+    padding: 0 25px;
+    margin: 15px 0;
+    color: rgb(2, 61, 32);
+    /* font-weight: bold;
+    font-size: 25px; */
+}
+
+.Tiles{
+    display: block;
+    flex-flow: row;
+    justify-content: center;
+    width: 90%;
+    margin: 100px 0;
+}
+
+@media (min-width: 520px) {
+    .ProfileMangement {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .Controls{
+        margin-top:50px; 
+        float: left;
+        width: 100%;
+    }
+    
+    .Posts{
+        float: right;
+        width: 75%;
+    }
+
+    .Tiles{
+        display: flex;
+        flex-flow: row wrap;
+    }
+}

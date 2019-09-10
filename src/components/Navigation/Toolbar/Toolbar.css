@@ -1,0 +1,31 @@
+.Toolbar {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg,rgb(62, 162, 209) 0%, rgb(46, 42, 87) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+}
+
+.Toolbar nav {
+    height: 100%;
+}
+
+.Logo {
+    height: 80%;
+}
+
+@media (max-width: 519px) {
+    .DesktopOnly {
+        display: none;
+    }
+    .Toolbar {
+        background: linear-gradient(90deg,rgb(7, 151, 79) 0%, rgb(3, 78, 41) 100%);
+    }
+}

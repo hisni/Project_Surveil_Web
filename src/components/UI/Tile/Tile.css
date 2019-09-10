@@ -1,0 +1,45 @@
+.Tile {
+    width: 80%;
+    height: 90px;
+    padding: 12px 0;
+    margin: 5% 15%;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgb(46, 42, 87);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.Tile p{
+    color: #72f1b6
+}
+
+.Tile:hover,
+.Tile:active {
+    background-color: rgb(42, 167, 104);
+}
+
+@media (min-width: 520px) {
+    .Tile {
+        width: 240px;
+        height: 150px;
+        padding: 20px 0;
+        margin: 20px auto;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 3px #ccc;
+        box-sizing: border-box;
+        font-size: 30px;
+    }
+    
+    .Tile p{
+        color: #72f1b6
+    }
+    
+    .Tile:hover,
+    .Tile:active {
+        background-color: rgb(78, 105, 146);
+    }
+}

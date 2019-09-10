@@ -1,0 +1,51 @@
+.Content{
+    width: 80%;
+    height: 80px;
+    display: block;
+    flex-flow: row;
+    text-align: center;
+    justify-content: center;
+    margin: 5px auto;
+    padding: 5px 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: rgb(9, 187, 128);
+    color: rgb(4, 75, 31)
+}
+
+.Email{
+    width:100%;
+    font-size: 18px;
+}
+
+.Name{
+    width:100%;
+    font-size: 18px;
+}
+
+.District{
+    width:100%;
+    font-size: 18px;
+}
+
+@media (min-width: 520px) {
+    .Content {
+        display: flex;
+        flex-flow: row wrap;
+        height: 40px;
+    }
+
+    .Email{
+        width:45%;
+    }
+    
+    .Name{
+        width:35%;
+    }
+    
+    .District{
+        width:20%;
+    }
+}

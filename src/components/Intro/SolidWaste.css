@@ -1,0 +1,60 @@
+.Text {
+    color: rgb(4, 75, 31);
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+.Images{
+    margin: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    width: 88%;
+    margin: 0 6% 0 6%;
+    justify-content: center;
+}
+
+.Images div{
+    width: 40%;
+    margin:4%;
+}
+
+.Images img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+.Images p{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.Glass {
+    color: #ed3941;
+}
+
+.Plastic {
+    color: #f58730;
+}
+
+.Paper {
+    color: #119ccd;
+}
+
+.Ewaste {
+    color: #696b6d;
+}
+
+.Metal {
+    color: #8100cc;
+}
+
+@media (min-width: 520px) {
+    .Images div{
+        width: 16%;
+        margin:2%;
+    }       
+}

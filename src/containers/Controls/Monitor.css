@@ -1,0 +1,31 @@
+.bg {
+  min-height: 85vh;
+}
+
+.Table table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  height: 100%;
+  margin: 50px auto;
+}
+
+.Table td, th {
+  border: 1px solid rgb(46, 42, 87);
+  text-align: left;
+  padding: 8px;
+}
+
+.Table tr:nth-child(even) {
+  background-color: #888b92;
+}
+
+.Title {
+  height: 50px;
+  text-align: center;
+  padding: 0 25px;
+  margin: 15px 0;
+  color: rgb(2, 61, 32);
+  /* font-weight: bold;
+  font-size: 25px; */
+}

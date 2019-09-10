@@ -1,0 +1,96 @@
+.Input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.ClearFlex {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: rgb(2, 61, 32)
+}
+
+.ClearMargrin {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: rgb(2, 61, 32)
+}
+
+.InputElement {
+    outline: none;
+    border: 1px solid #ccc;
+    background-color: rgb(0, 255, 200);
+    font: inherit;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: rgb(2, 61, 32)
+}
+
+.InputElement:focus {
+    outline: none;
+    background-color: #ccc;
+}
+
+.ClearWidth {
+    outline: none;
+    border: 1px solid #ccc;
+    background-color: rgb(0, 255, 200);
+    font: inherit;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: rgb(2, 61, 32)
+}
+
+.ClearWidth:focus {
+    outline: none;
+    background-color: #ccc;
+}
+
+.Invalid {
+    border: 1px solid red;
+    background-color: #FDA49A;
+}
+
+@media (min-width: 520px) {
+    .Input {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    .ClearFlex {
+        display: block;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+    
+    .Label {
+        width: 25%;
+        text-align: left;
+    }
+
+    .ClearMargrin {
+        width: 25%;
+        margin-left: 30%;
+    }
+    
+    .InputElement {
+        width: 75%;
+    }
+
+    .ClearWidth {
+        width: 100%;
+    } 
+}

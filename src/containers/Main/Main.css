@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+  background: linear-gradient(80deg,rgb(193, 204, 252) 0%, #737891 100%);
+  /* background-color: rgb(175, 248, 214); */
+  width: 100%;
+  min-height: 100vh;
+  display:block;
+  overflow:auto;
+  height: 100%;
+  padding: 15px 0;
+}

@@ -1,0 +1,56 @@
+.Button {
+    background-color: transparent;
+    border: none;
+    color: rgb(2, 61, 32);
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.Button:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.Button:disabled {
+    /* color: rgb(37, 241, 146); */
+    opacity: .3;
+    cursor: not-allowed;
+}
+
+.Success {
+    color: rgb(6, 145, 87);
+}
+
+.Logout {
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #72f1b6;
+    padding: 4px;
+    margin: 10px;
+    background-color: rgb(6, 156, 81);
+}
+
+.Logout:hover {
+    background-color: rgb(42, 167, 104);
+}
+
+.SuccessRe {
+    margin-top: -5px;
+    color: rgb(2, 61, 32);
+}
+
+.Danger {
+    color: #944317;
+}
+
+.DangerRe {
+    color: #944317;
+    margin: -5px -11px 0 0;
+    font-size: 16px;
+}

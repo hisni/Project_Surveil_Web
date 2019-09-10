@@ -1,0 +1,53 @@
+.Auth {
+    margin: 40px auto;
+    width: 90%;
+    height: 255px;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    background-color: rgba(52, 168, 110, 0.726);
+}
+
+.Auth p {
+    color: rgb(119, 8, 8);
+}
+
+.Extras{
+    margin-top: -24px;
+    margin-left: -15px;
+}
+
+.Title {
+    height: 50px;
+    text-align: center;
+    padding: 0 25px;
+    margin: 15px 0;
+    color: rgb(2, 61, 32);
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.Page{
+    min-height: 90vh;
+}
+
+@media (min-width: 600px) {
+    .Auth {
+        margin: 50px auto;
+        width: 500px;
+        height: 200px;
+        padding: 25px 10px;
+    }
+    
+    .Extras{
+        margin-top: -29px;
+        margin-left: -15px;
+    }
+
+    .Page{
+        min-height: 91vh;
+    }
+}
