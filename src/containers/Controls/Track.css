@@ -1,0 +1,32 @@
+.TrackBg{
+    min-height: 85vh;
+}
+
+.Title {
+    height: 50px;
+    text-align: center;
+    padding: 0 25px;
+    margin: 15px 0;
+    color: rgb(2, 61, 32);
+}
+
+.Left{
+    width: 16%;
+    margin: 0 2px;
+    float: left;
+    height: auto;
+}
+
+.Right{
+    width: 84%;
+    float: right;
+    box-sizing: border-box;
+    min-height: 85vh;
+    border-left: 3px solid rgb(65, 65, 65);
+}
+
+.Main {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 50px;
+}
