@@ -8,8 +8,6 @@ const initialState = {
     error: null,
     loading: false,
     signUpSuccess: false,
-    Authority:null,
-    District:null
 };
 
 const authStart = ( state, action ) => {
@@ -21,8 +19,6 @@ const authSuccess = (state, action) => {
         token: action.idToken,
         userId: action.userId,
         username: action.name,
-        Authority: action.authority,
-        District:action.district,
         error: null,
         loading: false,
         signUpSuccess: false
@@ -37,7 +33,7 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null, userId: null, username: null, Authority: null, District:null });
+    return updateObject(state, { token: null, userId: null, username: null, });
 };
 
 const signUpSuccess = (state, action) => {

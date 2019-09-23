@@ -8,14 +8,12 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId, username, Authority, District ) => {
+export const authSuccess = (token, userId, username) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
         userId: userId,
         name:username,
-        authority:Authority,
-        district:District
     };
 };
 
@@ -24,7 +22,6 @@ export const authFail = (error) => {
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
-    localStorage.removeItem('PHIauthority');
     return {
         type: actionTypes.AUTH_FAIL,
         error: error
@@ -42,8 +39,7 @@ export const logout = () => {
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
     localStorage.removeItem('username');
-    localStorage.removeItem('PHIauthority');
-
+    
     return {
         type: actionTypes.AUTH_LOGOUT
     };
@@ -66,7 +62,7 @@ export const authSignIn = (email, password) => {
             returnSecureToken: true
         };
         
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyD_U3qQekQqULtlVCv7A2GsysPnH2X96TI';
+        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDwULsNREL5lquusHIY2g1wjG8Pi2qL4EA';
         var dbURL = '';
 
         axios.post(url, authData)
@@ -75,7 +71,7 @@ export const authSignIn = (email, password) => {
             localStorage.setItem('token', response.data.idToken);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('userId', response.data.localId);
-            dbURL = 'https://co227-project.firebaseio.com/Users/'+response.data.localId+'.json?auth=' + response.data.idToken; 
+            dbURL = 'https://co321project-e273b.firebaseio.com/webUsers/'+response.data.localId+'.json?auth=' + response.data.idToken; 
             dispatch(loadSigninData( dbURL, response.data.idToken, response.data.localId ));
             dispatch(checkAuthTimeout(response.data.expiresIn));
         })
@@ -99,15 +95,15 @@ export const authSignUp = ( data ) => {
         const dbData = {
             Email: data.Email,
             Username: data.Username,
-            District: data.District
         };
+
         console.log(dbData);
-        const URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyD_U3qQekQqULtlVCv7A2GsysPnH2X96TI';
+        const URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDwULsNREL5lquusHIY2g1wjG8Pi2qL4EA';
         var dbURL = '';
 
         axios.post(URL, authData)
         .then(response => {
-            dbURL = 'https://co227-project.firebaseio.com/Users/'+response.data.localId+'.json'; 
+            dbURL = 'https://co321project-e273b.firebaseio.com/webUsers/'+response.data.localId+'.json'; 
             dispatch(storeSignupData( dbURL, dbData ));
     
         })
@@ -135,23 +131,13 @@ export const loadSigninData = ( dbURL, idToken, localId ) => {
     
     return dispatch => {
         var username = '';
-        var authority = '';
-        var district = '';
         axios.get(dbURL)
         .then(response => {
             for(let key in response.data){
                 username = response.data[key].Username;
-                authority = response.data[key].Authority;
-                district =  response.data[key].District;
             }
             localStorage.setItem('username', username);
-            localStorage.setItem('PHIauthority', authority);
-            localStorage.setItem('District', district);
-            if( authority === "admin" ){
-                dispatch(authFail("Login Error"));
-            }else{
-                dispatch(authSuccess(idToken, localId, username, authority, district));
-            }
+            dispatch(authSuccess(idToken, localId, username));
         })
         .catch(err => {
             dispatch(authFail(err.response.data.error));
@@ -177,10 +163,8 @@ export const authCheckState = () => {
             } else {
                 const userId = localStorage.getItem('userId');
                 const username = localStorage.getItem('username');
-                const authority = localStorage.getItem('PHIauthority');
-                const district = localStorage.getItem('District');
 
-                dispatch(authSuccess(token, userId, username, authority, district));
+                dispatch(authSuccess(token, userId, username ));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
             }   
         }
