@@ -3,10 +3,10 @@
 }
 
 .Title {
-    height: 50px;
+    height: 40px;
     text-align: center;
-    padding: 0 25px;
-    margin: 15px 0;
+    /* padding: 5px; */
+    /* margin: 5px 0; */
     color: rgb(2, 61, 32);
 }
 
@@ -23,10 +23,11 @@
     box-sizing: border-box;
     min-height: 85vh;
     border-left: 3px solid rgb(65, 65, 65);
+    padding: 20px;
 }
 
 .Main {
     display: flex;
     flex-flow: row;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }

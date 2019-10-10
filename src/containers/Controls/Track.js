@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { ReactBingmaps } from 'react-bingmaps';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import classes from './Track.css';
 import Input from '../../components/UI/Input/Input';
@@ -148,10 +149,23 @@ class Posts extends Component {
                             {filter}
                         </div>
                         <div className={classes.Right} >
-                            <section className={classes.Posts}>
-                                {/* {posts} */}
-                                Map
-                            </section>
+                            <ReactBingmaps 
+                                mapTypeId = {"road"}
+                                zoom = {7}
+                                bingmapKey = "APIKEY" 
+                                center = {[7.2906, 80.7718]}
+                                pushPins = {[{
+                                    "location":[7.2906, 80.7718],
+                                    "option":{ color: 'blue' },
+                                    "addHandler": {"type" : "click", callback: this.callBackMethod }
+                                }]}
+                                infoboxes = {[{
+                                        "location":[7.2906, 80.7718],
+                                        "option":{ title: 'RN1001', description: 'Time' },
+                                        "addHandler": {"type" : "click", callback: this.callBackMethod}
+                                }]}
+                            > 
+                            </ReactBingmaps>
                         </div>
                     </div>
 
