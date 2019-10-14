@@ -1,5 +1,5 @@
 .bg {
-  min-height: 85vh;
+  min-height: 100vh;
 }
 
 .Table table {
@@ -28,4 +28,15 @@
   color: rgb(2, 61, 32);
   /* font-weight: bold;
   font-size: 25px; */
+}
+
+.Left{
+  width: 50%;
+  float: left;
+  /* min-height: 50vh; */
+}
+
+.Right{
+  width: 50%;
+  float: right;
 }

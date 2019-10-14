@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import axios from 'axios';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import classes from './Monitor.css';
@@ -46,26 +47,102 @@ class Posts extends Component {
     }
 
     render() {
-        var Data = [];
+
+    // const data = [
+    // { name: 'Page A', uv: 4000},
+    // { name: 'Page B', uv: 3000},
+    // { name: 'Page C', uv: 2000},
+    // { name: 'Page D', uv: 2780},
+    // { name: 'Page E', uv: 1890},
+    // { name: 'Page F', uv: 2390},
+    // { name: 'Page G', uv: 3490} ];
+
+        var data = [];
     
         if( this.state.posts ){
             this.state.posts.map(post => {
-                Data.push({
-                    id: post.id,
+                data.push({
+                    name: post.id,
                     temp: post.Temperature,
                     pres: post.Pressure,
                     humi: post.Humidity,
-                    stab: post.Stability
+                    // stab: post.Stability
                 });
                 return null;
             });
         }
 
-        Data = Data.slice(-7);
+        data = data.slice(-5);
 
         return(
             <Aux>
-                <div className={classes.bg}>
+                <div className={classes.bg} >
+                    <div>
+                        <div className={classes.Left}>
+                            <LineChart
+                                width={600}
+                                height={300}
+                                data={data}
+                                margin={{ top: 5, right: 20, left: 20, bottom: 5,}}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="temp" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                            </LineChart>
+                        </div>
+                        <div className={classes.Right}>
+                            <LineChart
+                                width={600}
+                                height={300}
+                                data={data}
+                                margin={{ top: 5, right: 20, left: 20, bottom: 5,}}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={['dataMin - 2', 'dataMax + 2']} />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="humi" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                            </LineChart>
+                        </div>
+                    </div>
+                    <div>
+                        <div className={classes.Left}>
+                            <LineChart
+                                width={600}
+                                height={300}
+                                data={data}
+                                margin={{ top: 5, right: 20, left: 20, bottom: 5,}}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="pres" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                            </LineChart>
+                        </div>
+                        {/* <div className={classes.Right}>
+                            <LineChart
+                                width={600}
+                                height={300}
+                                data={data}
+                                margin={{ top: 5, right: 20, left: 20, bottom: 5,}}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis domain={['dataMin - 2', 'dataMax + 2']} />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="humi" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                            </LineChart>
+                        </div> */}
+                    </div>
+                </div>
+                {/* <div className={classes.bg}>
                     <div className={classes.Table}>
                         <table>
                             <tbody>
@@ -88,7 +165,7 @@ class Posts extends Component {
                             </tbody>
                         </table> 
                     </div>
-                </div>
+                </div> */}
             </Aux>
         );
         
