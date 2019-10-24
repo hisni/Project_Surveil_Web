@@ -1,14 +1,13 @@
 .Tile {
     width: 80%;
-    height: 90px;
-    padding: 12px 0;
+    height: 70px;
     margin: 5% 15%;
     text-align: center;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
     box-sizing: border-box;
     cursor: pointer;
-    background-color: rgb(46, 42, 87);
+    background-color: rgb(42, 76, 87);
     font-weight: bold;
     font-size: 20px;
 	animation: scale-in-ver-center .8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
@@ -31,7 +30,7 @@
 
 .Tile:hover,
 .Tile:active {
-    background-color: rgb(42, 167, 104);
+    background-color: rgb(42, 76, 87);
 }
 
 @media (min-width: 520px) {
@@ -52,6 +51,6 @@
     
     .Tile:hover,
     .Tile:active {
-        background-color: rgb(78, 105, 146);
+        background-color: rgb(90, 123, 133);
     }
 }
