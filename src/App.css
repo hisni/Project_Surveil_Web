@@ -21,3 +21,23 @@
 		background: #82adad;
 	}
 }
+
+@media (max-width: 519px) {
+    .App {
+		background: #aab4df;
+		animation: App 3s linear infinite alternate both;
+	}
+	
+	@keyframes App {
+		0% {
+			background: #aab4df;
+		}
+		50% {
+			background: #aab4df;
+		}
+		100% {
+			background: #aab4df;
+		}
+	}
+	
+}
