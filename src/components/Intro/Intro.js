@@ -5,11 +5,11 @@ const Intro = () => {
 
   return (
     <div className={classes.intro}>
+		{/* <h1 className={classes.introText} >
+			WELCOME TO
+		</h1> */}
 		<h1 className={classes.introText} >
-			Welcome to Surveil
-		</h1>
-		<h1 className={classes.introText} >
-			Pharma
+			VISION BOKS
 		</h1>
 		<h2 className={classes.introText} >
 			Monitoring and Tracking System 
