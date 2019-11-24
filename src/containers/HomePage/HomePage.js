@@ -10,8 +10,8 @@ class HomePage extends Component {
                 <div className={classes.ints}>
                     <Intro/>
                 </div>
-                {/* <div className={classes.districts}>
-                </div> */}
+                <div className={classes.image}>
+                </div>
             </div>
         );
     }

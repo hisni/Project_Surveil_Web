@@ -1,15 +1,16 @@
 .App {
 	text-align: center;
 	/* background: linear-gradient(80deg,#c1ccfc 0%, #737891 100%); */
+	background: #9ca5ce;
 	width: 100%;
 	min-height: 80vh;
 	display:block;
 	overflow:auto;
 	height: 100%;
 	padding: 15px 0;
-	animation: App 3s linear infinite alternate both;
+	/* animation: App 3s linear infinite alternate both; */
 }
-
+/* 
 @keyframes App {
 	0% {
 		background: #aab4df;
@@ -20,7 +21,7 @@
 	100% {
 		background: #82adad;
 	}
-}
+} */
 
 @media (max-width: 519px) {
     .App {
