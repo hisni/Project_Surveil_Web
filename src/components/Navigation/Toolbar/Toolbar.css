@@ -5,6 +5,7 @@
     top: 0;
     left: 0;
     /* background: linear-gradient(90deg,#3ea2d1 0%, #2e2a57 100%); */
+    background: #483d68;
     display: flex;
     justify-content: space-between;
     align-items: center;
