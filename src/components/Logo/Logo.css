@@ -1,5 +1,4 @@
 .Logo {
-    margin-top: 5px;
     height: 100%;
 }
 
@@ -7,9 +6,20 @@
     height: 100%;
 }
 
+.Logo2 img {
+    height: 100%;
+}
+.Logo2{
+    display: none;
+}
+
 @media (max-width: 519px) {
-    .Logo {
+    .Logo2{
+        display: block;
         margin-top: 8px;
         height: 65%;
+    }
+    .Logo{
+        display: none;
     }
 }

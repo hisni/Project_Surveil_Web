@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
         <div className={classes.Left}>
-            <h4><FaCopyright /> 2019, VISION BOKS</h4>
+            <h4><FaCopyright /> 2019, VISION POD</h4>
         </div>
         <div className={classes.Right}>
             <h4>All Rights Reserved.</h4>
