@@ -37,3 +37,39 @@
     }
     
 }
+
+@media (min-width: 520px) {
+    .introText {
+        animation:  focusInExpand 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both,
+                    colorChange 1s linear infinite alternate both;
+    }
+
+    @keyframes focusInExpand {
+        0% {
+            letter-spacing: -0.5em;
+            filter: blur(12px);
+            opacity: 0;
+        }
+        100% {
+            filter: blur(0px);
+            opacity: 1;
+        }
+    }
+
+    @keyframes colorChange {
+        0% {
+            color: rgb(150, 154, 175);
+        }
+        100% {
+            color: rgb(179, 184, 211);
+        }
+    }
+
+    @media (min-width: 520px) {
+        .intro{
+            position: relative;
+            font-size: 18px;
+        }
+        
+    }
+}

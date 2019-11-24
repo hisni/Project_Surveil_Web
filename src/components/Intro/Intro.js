@@ -9,7 +9,7 @@ const Intro = () => {
 			WELCOME TO
 		</h1> */}
 		<h1 className={classes.introText} >
-			VISION BOKS
+			VISION POD
 		</h1>
 		<h2 className={classes.introText} >
 			Monitoring and Tracking System 
