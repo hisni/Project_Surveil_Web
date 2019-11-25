@@ -62,7 +62,7 @@ export const authSignIn = (email, password) => {
             returnSecureToken: true
         };
         
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=APIKEY';
+        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDwULsNREL5lquusHIY2g1wjG8Pi2qL4EA';
         var dbURL = '';
 
         axios.post(url, authData)
@@ -98,7 +98,7 @@ export const authSignUp = ( data ) => {
         };
 
         console.log(dbData);
-        const URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=APIKEY';
+        const URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDwULsNREL5lquusHIY2g1wjG8Pi2qL4EA';
         var dbURL = '';
 
         axios.post(URL, authData)

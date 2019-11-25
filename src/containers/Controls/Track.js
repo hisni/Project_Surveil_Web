@@ -152,7 +152,7 @@ class Posts extends Component {
                             <ReactBingmaps 
                                 mapTypeId = {"road"}
                                 zoom = {7}
-                                bingmapKey = "APIKEY" 
+                                bingmapKey = "AuIjk7fl6IjgdIgBsz10779RYIKHdLkzdkej9jZhJKmaJlZY093Z6CazJRjhqvVe" 
                                 center = {[7.2906, 80.7718]}
                                 pushPins = {[{
                                     "location":[7.2906, 80.7718],

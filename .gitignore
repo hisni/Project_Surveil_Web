@@ -22,4 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-./src/store/actions/auth.js
+src/containers/Controls/Track.js
+src/store/actions/auth.js
