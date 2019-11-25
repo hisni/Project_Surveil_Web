@@ -62,7 +62,7 @@ export const authSignIn = (email, password) => {
             returnSecureToken: true
         };
         
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDwULsNREL5lquusHIY2g1wjG8Pi2qL4EA';
+        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=APIKEY';
         var dbURL = '';
 
         axios.post(url, authData)
