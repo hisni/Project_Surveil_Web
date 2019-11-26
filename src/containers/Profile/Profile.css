@@ -21,13 +21,13 @@
     width: 100%;
 }
 
-.Posts {
+/* .Posts {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     width: 100%;
     margin: auto;
-}
+} */
 
 .Title {
     height: 50px;
@@ -59,10 +59,10 @@
         width: 100%;
     }
     
-    .Posts{
+    /* .Posts{
         float: right;
         width: 75%;
-    }
+    } */
 
     .Tiles{
         display: flex;

@@ -12,6 +12,7 @@ import Profile from '../../containers/Profile/Profile';
 import Monitor from '../Controls/Monitor';
 import Track from '../Controls/Track';
 import Set from '../Controls/Set';
+import Orders from '../Controls/Orders';
 
 import * as actions from '../../store/actions/index';
 
@@ -43,6 +44,7 @@ class Main extends Component {
                     <Route path="/monitor" exact component={Monitor} />
                     <Route path="/track" exact component={Track} />
                     <Route path="/set" exact component={Set} />
+                    <Route path="/order" exact component={Orders} />
                     {/* <Route path="/post-add" exact component={NewPost} /> */}
                     <Route path="/profile" exact component={Profile} />                    
                     <Route path="/logout" exact component={Logout} />                 

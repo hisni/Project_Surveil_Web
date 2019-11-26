@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import classes from './Profile.css';
-// import UserPosts from '../PostSection/Posts/UserPosts';
 import Tile from '../../components/UI/Tile/Tile';
 import AUX from '../../hoc/Auxiliary/Auxiliary';
 
@@ -18,6 +17,9 @@ class Profile extends Component {
                 break;
             case "Set":
                 this.props.history.push({pathname: '/set'});
+                break;
+            case "Order":
+                this.props.history.push({pathname: '/order'});
                 break;
             default: ;
         }
@@ -40,34 +42,17 @@ class Profile extends Component {
                                 title={'Track'}
                                 clicked={() => this.postSelectedHandler('Track')}/>
                             <Tile 
-                                title={'Set Params'}
+                                title={'Set Parameters'}
                                 clicked={() => this.postSelectedHandler('Set')}/> 
+                            <Tile 
+                                title={'Add Orders'}
+                                clicked={() => this.postSelectedHandler('Order')}/> 
                         </div>
                     </section>
                 </div>
             </div>
         );
 
-        // if( this.props.Authority === "PHI"  ){
-        //     profile = (
-        //         <div className={classes.Profile}>
-        //             <div className={classes.Title}>
-        //                 <h2>{this.props.Name}</h2>
-        //                 <h3>Public Health Inspector</h3>
-        //                 <h3>{this.props.District} District</h3>
-        //             </div>
-        //             <div className={classes.Tiles}>
-        //                 <Tile 
-        //                     title={'District Accounts'}
-        //                     clicked={() => this.postSelectedHandler('DA')}/>
-        //                 <Tile 
-        //                     title={'District Posts'}
-        //                     clicked={() => this.postSelectedHandler('DP')}/> 
-        //             </div>
-        //         </div>
-        //     )
-        // }
-     
         return (
             <AUX>
                 {profile}
