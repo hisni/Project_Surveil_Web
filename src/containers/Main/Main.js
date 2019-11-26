@@ -48,7 +48,7 @@ class Main extends Component {
                     <Route path="/logout" exact component={Logout} />                 
                     {/* <Route path="/accounts" exact component={Accounts} />                  */}
                     {/* <Route path="/districtposts" exact component={DistrictPosts} />                  */}
-                    {/* <Route path="/posts/:district" exact component={Posts} />                         */}
+                    <Route path="/Nodes/:node" exact component={Track} />                        
                     {/* <Route path="/post/user/:pid" exact component={User} /> */}
                     {/* <Route path="/profile/posts/:id" exact component={FullPost} />                                                 */} */}
                     {/* <Route path="/posts/:district/:id" exact component={FullPost} />    */}

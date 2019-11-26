@@ -5,6 +5,7 @@ const initialState = {
     token: null,
     userId: null,
     username: null,
+    phone: null,
     error: null,
     loading: false,
     signUpSuccess: false,
@@ -19,6 +20,7 @@ const authSuccess = (state, action) => {
         token: action.idToken,
         userId: action.userId,
         username: action.name,
+        phone: action.phoneNo,
         error: null,
         loading: false,
         signUpSuccess: false
@@ -33,7 +35,7 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null, userId: null, username: null, });
+    return updateObject(state, { token: null, userId: null, username: null, phone:null });
 };
 
 const signUpSuccess = (state, action) => {
