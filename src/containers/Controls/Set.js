@@ -8,124 +8,165 @@ import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import { updateObject, checkValidity } from '../../shared/utility';
 import classes from './Set.css';
+import Spinner from '../../components/UI/Spinner/Spinner'
+import { node } from 'prop-types';
 
 class Set extends Component {
 
     state = {
-        PostForm: {
-            Title: {
+        EndNodes: null,
+        ParamForm: {
+            Node: {
+                elementType: 'select',
+                elementConfig: {
+                    options: []
+                },
+                value: 'en1001',
+                validation: {},
+                valid: true
+            },
+            TemperatureMin: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Title'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 1
-                },
-                valid: false,
-                touched: false
-            },
-            Type: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Type'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 1
-                },
-                valid: false,
-                touched: false
-            },
-            Description: {
-                elementType: 'textarea',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Description'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 1
-                },
-                valid: false,
-                touched: false
-            },
-            ContactNo: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Contact Number'
+                    placeholder: 'Temperature Min'
                 },
                 value: '',
                 validation: {
                     required: true,
                     isNumeric: true,
-                    minLength: 9,
-                    maxLength: 10
+                    minLength: 1,
+                    maxLength: 2
                 },
                 valid: false,
                 touched: false
             },
-            District: {
-                elementType: 'select',
-                elementConfig: {
-                    options: [
-                        {value: 'Matale', displayValue: 'Matale'},
-                        {value: 'Kandy', displayValue: 'Kandy'},
-                        {value: 'Nuwara Eliya', displayValue: 'Nuwara Eliya'},
-                        {value: 'Kurunegala', displayValue: 'Kurunegala'},
-                        {value: 'Puttalam', displayValue: 'Puttalam'},
-                        {value: 'Colombo', displayValue: 'Colombo'},
-                        {value: 'Kaluthara', displayValue: 'Kaluthara'},
-                        {value: 'Gampaha', displayValue: 'Gampaha'},
-                        {value: 'Badulla', displayValue: 'Badulla'},
-                        {value: 'Ampara', displayValue: 'Ampara'},
-                        {value: 'Batticaloa', displayValue: 'Batticaloa'},
-                        {value: 'Jaffna', displayValue: 'Jaffna'},
-                        {value: 'Kegalle', displayValue: 'Kegalle'},
-                        {value: 'Mannar', displayValue: 'Mannar'},
-                        {value: 'Monaragala', displayValue: 'Monaragala'},
-                        {value: 'Mullaitivu', displayValue: 'Mullaitivu'},
-                        {value: 'Trincomalee', displayValue: 'Trincomalee'},
-                        {value: 'Vavuniya', displayValue: 'Vavuniya'},
-                        {value: 'Galle', displayValue: 'Galle'},
-                        {value: 'Matara', displayValue: 'Matara'},
-                        {value: 'Hambantota', displayValue: 'Hambantota'},
-                    ]
-                },
-                value: '',
-                validation: {},
-                valid: true
-            },
-            Address: {
-                elementType: 'textarea',
+            TemperatureMax: {
+                elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Address'
+                    placeholder: 'Temperature Max'
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isNumeric: true,
+                    minLength: 1,
+                    maxLength: 2
+                },
+                valid: false,
+                touched: false
+            },
+            PressureMin: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Pressure Min'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true,
+                    minLength: 1,
+                    maxLength: 7
+                },
+                valid: false,
+                touched: false
+            },
+            PressureMax: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Pressure Max'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true,
+                    minLength: 1,
+                    maxLength: 7
+                },
+                valid: false,
+                touched: false
+            },
+            HumidityMin: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Humidity Min'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true,
+                    minLength: 1,
+                    maxLength: 3
+                },
+                valid: false,
+                touched: false
+            },
+            HumidityMax: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Humidity Max'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isNumeric: true,
+                    minLength: 1,
+                    maxLength: 3
                 },
                 valid: false,
                 touched: false
             },
         },
+        updated:false,
         submitted: false,
         formIsValid: false,
-        postID: null
+        // postID: null
+    }
+
+    componentDidMount () {
+        // console.log("componentDidMount");
+        // if( this.props.match.params.node ){
+        //     this.setNode( this.props.match.params.node );
+        // }
+
+        axios.get( 'https://co321project-e273b.firebaseio.com/EndNodes.json' )
+        .then( response => {
+            const fetchedNodes = [];
+            for(let key in response.data){
+                fetchedNodes.push({
+                    ...response.data[key],
+                    id: key
+                });
+            }
+            this.setState({EndNodes: fetchedNodes});
+            
+            this.state.EndNodes.map(nodes => {
+                const updatedParamForm = {
+                    ...this.state.ParamForm,
+                };
+                updatedParamForm.Node.elementConfig.options.push(
+                        { value: nodes.id, displayValue: nodes.id }
+                )
+                this.setState({ParamForm: updatedParamForm});
+                return true;
+            });
+            this.setState({updated: true});
+            // console.log(this.state.ParamForm);
+            
+        } );
+
     }
 
     inputChangedHandler = (event, PostIdentifier) =>{
-        const updatedPostForm = updateObject( this.state.PostForm, {
-            [PostIdentifier]: updateObject( this.state.PostForm[PostIdentifier], {
+        const updatedPostForm = updateObject( this.state.ParamForm, {
+            [PostIdentifier]: updateObject( this.state.ParamForm[PostIdentifier], {
                 value: event.target.value,
-                valid: checkValidity( event.target.value, this.state.PostForm[PostIdentifier].validation ),
+                valid: checkValidity( event.target.value, this.state.ParamForm[PostIdentifier].validation ),
                 touched: true
             } )
         } );
@@ -135,30 +176,28 @@ class Set extends Component {
             formIsValid = updatedPostForm[inputIdentifier].valid && formIsValid;
         }
 
-        this.setState({PostForm: updatedPostForm, formIsValid: formIsValid});
+        this.setState({ParamForm: updatedPostForm, formIsValid: formIsValid});
     }
 
     postDataHandler = (event) => {
         event.preventDefault();
         const formData = {};
-        for(let formIdentifier in this.state.PostForm ){
-            formData[formIdentifier] = this.state.PostForm[formIdentifier].value;
+        var nodeID;
+        for(let formIdentifier in this.state.ParamForm ){
+            formData[formIdentifier] = this.state.ParamForm[formIdentifier].value;
+            
+            if( formIdentifier === 'Node' ){
+                nodeID = this.state.ParamForm[formIdentifier].value;
+            }
         }
 
-        const token = this.props.tokenID;
-        const ID = this.props.userID
-
-        const data = {
-            UID: ID,
-            District: formData.District,
-            postData : formData
-        };
+        console.log(nodeID);
         
-        axios.post('/Posts.json?auth=' + token ,data)
+        axios.put('https://co321project-e273b.firebaseio.com/EndNodes/' + nodeID +'/Parameters.json?auth=' + this.props.tokenID ,formData)
             .then( response => {                
-                this.setState({submitted:true, postID:response.data.name});
+                this.setState({submitted:true});
             });
-
+        
     }
 
     render() {
@@ -166,50 +205,61 @@ class Set extends Component {
         let redirect = null;
         
         if( this.state.submitted ){
-            redirect = <Redirect to={"posts/user/" + this.state.postID}/>
+            redirect = <Redirect to={"/profile"}/>
         }
 
         const formElementsArray = [];
-        for (let key in this.state.PostForm) {
-            formElementsArray.push({
-                id: key,
-                config: this.state.PostForm[key]
-            });
+        let form = <Spinner />;
+        let button = null;
+
+        if( this.state.updated ){
+            
+            for (let key in this.state.ParamForm) {
+                formElementsArray.push({
+                    id: key,
+                    config: this.state.ParamForm[key]
+                });
+            }
+            
+            form = (
+                formElementsArray.map(formElement => (
+                    <Input 
+                        key={formElement.id}
+                        label={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}
+                        touched={formElement.config.touched}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                ))
+            );
+
+            button = <Button btnType="Success" disabled={!this.state.formIsValid} >Add Post</Button>
         }
-        let form = (
-            formElementsArray.map(formElement => (
-                <Input 
-                    key={formElement.id}
-                    label={formElement.id}
-                    elementType={formElement.config.elementType}
-                    elementConfig={formElement.config.elementConfig}
-                    value={formElement.config.value}
-                    invalid={!formElement.config.valid}
-                    shouldValidate={formElement.config.validation}
-                    touched={formElement.config.touched}
-                    changed={(event) => this.inputChangedHandler(event, formElement.id)} />
-            ))
-        );
 
         return(
             <Aux>
-                <div>
-                    <div className={classes.Title}>
-                        {redirect}
-                        <h1>Adjust Parameters</h1>
-                    </div>
-                    <div className={classes.FormEl}>
-                        <form onSubmit={this.postDataHandler} >
-                            {form}
-                            <Button btnType="Success" disabled={!this.state.formIsValid} >Add Post</Button>
-                        </form>
+                <div className={classes.SetBG}>
+                    <div className={classes.FormBG}>
+                        <div className={classes.Title}>
+                            {redirect}
+                            <h1>Adjust Parameters</h1>
+                        </div>
+                        <div className={classes.FormEl}>
+                            <form onSubmit={this.postDataHandler} >
+                                {form}
+                                {button}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </Aux>
         );
-        
     };
 }
+
 const mapStateToProps = state => {
     return {
         tokenID: state.auth.token,

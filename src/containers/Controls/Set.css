@@ -1,9 +1,31 @@
-.Title {
+.Title{
     height: 50px;
     text-align: center;
     padding: 0 25px;
     margin: 15px 0;
-    color: rgb(2, 61, 32);
-    /* font-weight: bold;
-    font-size: 25px; */
-  }
+    color: #22134e;
+}
+
+.FormBG{
+    width: 80%;
+    margin: 20px auto;
+    padding: 0 15px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    background-color: #93cce9;
+    text-align: center;
+}
+
+.SetBG{
+    min-height: 85vh;
+}
+
+@media (min-width: 520px) {
+    .FormBG{
+        width: 60%;
+    }
+
+    .SetBG{
+        min-height: 80vh;
+    }
+}
