@@ -3,18 +3,38 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 import axios from 'axios';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import classes from './Monitor.css';
+import Input from '../../components/UI/Input/Input';
+
 
 class Monitor extends Component {
     state = {
         posts: null,
         Count:0,
         Update:false,
+        // RelayNodes: null,
+        // coordinates: null,
+        Controls: {
+            Node: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: "en1001", displayValue: "en1001" },
+                        // { value: "en1002", displayValue: "en1002" }
+                    ]
+                },
+                value: 'en1001',
+                validation: {},
+                valid: true
+            }
+        },
     }
 
     componentDidMount () {
         setInterval(() => this.forceUpdate(), 5000);
 
-        axios.get( 'https://co321project-e273b.firebaseio.com/Readings/rn1001/en1001.json' )
+        var ID = this.state.Controls.Node.value;
+
+        axios.get( 'https://co321project-e273b.firebaseio.com/Readings/rn1001/'+ID+'.json' )
         .then( response => {
             const fetchedPosts = [];
             for(let key in response.data){
@@ -28,7 +48,9 @@ class Monitor extends Component {
     }
 
     fetch = () =>{
-        axios.get( 'https://co321project-e273b.firebaseio.com/Readings/rn1001/en1001.json' )
+        var ID = this.state.Controls.Node.value;
+        
+        axios.get( 'https://co321project-e273b.firebaseio.com/Readings/rn1001/'+ID+'.json' )
         .then( response => {
             const fetchedPosts = [];
             for(let key in response.data){
@@ -43,19 +65,52 @@ class Monitor extends Component {
 
     componentWillUpdate () {
         this.fetch();
-        console.log(this.state.posts);
+        // console.log(this.state.posts);
+    }
+
+    inputChangedHandler = (event, nodeIdentifier) =>{
+        this.resetCount();
+        const updatedControls = {
+            ...this.state.Controls,
+            [nodeIdentifier]: {
+                ...this.state.Controls[nodeIdentifier],
+                value: event.target.value,
+                touched: true
+            }
+        };
+        this.setState({Controls: updatedControls});
     }
 
     render() {
 
-    // const data = [
-    // { name: 'Page A', uv: 4000},
-    // { name: 'Page B', uv: 3000},
-    // { name: 'Page C', uv: 2000},
-    // { name: 'Page D', uv: 2780},
-    // { name: 'Page E', uv: 1890},
-    // { name: 'Page F', uv: 2390},
-    // { name: 'Page G', uv: 3490} ];
+        const filterArray = [];
+        let filter = null;
+
+        if( this.state.Controls.Node.elementConfig.options.length ){
+            
+            for (let key in this.state.Controls) {
+                filterArray.push({
+                    id: key,
+                    config: this.state.Controls[key]
+                });
+            }
+
+            filter = (
+                filterArray.map(filterElement => (
+                    <Input 
+                        key={filterElement.id}
+                        label={filterElement.id}
+                        class={"Clear"}
+                        elementType={filterElement.config.elementType}
+                        elementConfig={filterElement.config.elementConfig}
+                        value={filterElement.config.value}
+                        invalid={!filterElement.config.valid}
+                        shouldValidate={filterElement.config.validation}
+                        touched={filterElement.config.touched}
+                        changed={(event) => this.inputChangedHandler(event, filterElement.id)} />
+                ))
+            );
+        }
 
         var data = [];
     
@@ -63,20 +118,35 @@ class Monitor extends Component {
             this.state.posts.map(post => {
                 data.push({
                     name: post.id,
-                    temp: post.Temperature,
-                    pres: post.Pressure,
-                    humi: post.Humidity,
-                    // stab: post.Stability
+                    Temperature: post.Temperature,
+                    Pressure: post.Pressure,
+                    Humidity: post.Humidity,
+                    stab: post.Stability
                 });
                 return null;
             });
         }
 
         data = data.slice(-5);
+        var condition = null;
+
+        for( let key in data){
+            if( key === "4" ){
+                condition = data[key].stab;
+            }
+        }
+
+        var cond = null;
+        if( condition ){
+            cond = <h3>Condition: {condition}</h3>
+        }
 
         return(
             <Aux>
                 <div className={classes.bg} >
+                    <div className={classes.Filter} >
+                        {filter}
+                    </div>
                     <div>
                         <div className={classes.Left}>
                             <LineChart
@@ -90,7 +160,7 @@ class Monitor extends Component {
                                 <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
                                 <Tooltip />
                                 <Legend />
-                                <Line type="monotone" dataKey="temp" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="Temperature" stroke="#2E2A57" activeDot={{ r: 8 }} />
                             </LineChart>
                         </div>
                         <div className={classes.Right}>
@@ -105,7 +175,7 @@ class Monitor extends Component {
                                 <YAxis domain={['dataMin - 2', 'dataMax + 2']} />
                                 <Tooltip />
                                 <Legend />
-                                <Line type="monotone" dataKey="humi" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="Humidity" stroke="#2E2A57" activeDot={{ r: 8 }} />
                             </LineChart>
                         </div>
                     </div>
@@ -122,50 +192,15 @@ class Monitor extends Component {
                                 <YAxis domain={['dataMin - 1', 'dataMax + 1']} />
                                 <Tooltip />
                                 <Legend />
-                                <Line type="monotone" dataKey="pres" stroke="#2E2A57" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="Pressure" stroke="#2E2A57" activeDot={{ r: 8 }} />
                             </LineChart>
                         </div>
-                        {/* <div className={classes.Right}>
-                            <LineChart
-                                width={600}
-                                height={300}
-                                data={data}
-                                margin={{ top: 5, right: 20, left: 20, bottom: 5,}}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis domain={['dataMin - 2', 'dataMax + 2']} />
-                                <Tooltip />
-                                <Legend />
-                                <Line type="monotone" dataKey="humi" stroke="#2E2A57" activeDot={{ r: 8 }} />
-                            </LineChart>
-                        </div> */}
+                        <div className={classes.Right}>
+                            {cond}
+                        </div>
                     </div>
+                 
                 </div>
-                {/* <div className={classes.bg}>
-                    <div className={classes.Table}>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>TimeStamp</th>
-                                    <th>Temperature</th>
-                                    <th>Pressure</th>
-                                    <th>Humidity</th>
-                                    <th>Stability</th>
-                                </tr>
-                                {Data.map(row => (
-                                    <tr key={row.id}>
-                                        <td>{row.id}</td>
-                                        <td>{row.temp}</td>
-                                        <td>{row.pres}</td>
-                                        <td>{row.humi}</td>
-                                        <td>{row.stab}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table> 
-                    </div>
-                </div> */}
             </Aux>
         );
         

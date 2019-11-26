@@ -2,139 +2,66 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import uuidv4 from 'uuid/v4';
 
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import { updateObject, checkValidity } from '../../shared/utility';
 import classes from './Set.css';
-import Spinner from '../../components/UI/Spinner/Spinner'
-import { node } from 'prop-types';
+import Spinner from '../../components/UI/Spinner/Spinner';
+
+// import { node } from 'prop-types';
 
 class Orders extends Component {
 
     state = {
-        EndNodes: null,
-        ParamForm: {
-            Node: {
+        Pharmacy: null,
+        Drivers:null,
+        OrderForm: {
+            Pharmacy: {
                 elementType: 'select',
                 elementConfig: {
                     options: []
                 },
-                value: 'en1001',
+                value: 'HtY7qFD8XoZjkVteZJWTUTZAkuV2',
                 validation: {},
                 valid: true
             },
-            TemperatureMin: {
-                elementType: 'input',
+            Driver: {
+                elementType: 'select',
                 elementConfig: {
-                    type: 'text',
-                    placeholder: 'Temperature Min'
+                    options: []
                 },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    minLength: 1,
-                    maxLength: 2
-                },
-                valid: false,
-                touched: false
+                value: 'rn1001',
+                validation: {},
+                valid: true
             },
-            TemperatureMax: {
+            BoxID: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    placeholder: 'Temperature Max'
+                    placeholder: 'Box ID'
                 },
                 value: '',
                 validation: {
                     required: true,
-                    isNumeric: true,
-                    minLength: 1,
-                    maxLength: 2
-                },
-                valid: false,
-                touched: false
-            },
-            PressureMin: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Pressure Min'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    minLength: 1,
-                    maxLength: 7
-                },
-                valid: false,
-                touched: false
-            },
-            PressureMax: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Pressure Max'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    minLength: 1,
-                    maxLength: 7
-                },
-                valid: false,
-                touched: false
-            },
-            HumidityMin: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Humidity Min'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    minLength: 1,
-                    maxLength: 3
-                },
-                valid: false,
-                touched: false
-            },
-            HumidityMax: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Humidity Max'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isNumeric: true,
-                    minLength: 1,
-                    maxLength: 3
+                    minLength: 1
                 },
                 valid: false,
                 touched: false
             },
         },
-        updated:false,
-        submitted: false,
+        updated1:false,
+        updated2:false,
+        submitted1: false,
+        submitted2: false,
+        submitted3: false,
         formIsValid: false,
-        // postID: null
     }
 
     componentDidMount () {
-        // console.log("componentDidMount");
-        // if( this.props.match.params.node ){
-        //     this.setNode( this.props.match.params.node );
-        // }
-
-        axios.get( 'https://co321project-e273b.firebaseio.com/EndNodes.json' )
+        axios.get( 'https://co321project-e273b.firebaseio.com/pharmacies.json' )
         .then( response => {
             const fetchedNodes = [];
             for(let key in response.data){
@@ -143,30 +70,52 @@ class Orders extends Component {
                     id: key
                 });
             }
-            this.setState({EndNodes: fetchedNodes});
+            this.setState({Pharmacy: fetchedNodes});
             
-            this.state.EndNodes.map(nodes => {
-                const updatedParamForm = {
-                    ...this.state.ParamForm,
+            this.state.Pharmacy.map(nodes => {
+                const updatedOrderForm = {
+                    ...this.state.OrderForm,
                 };
-                updatedParamForm.Node.elementConfig.options.push(
-                        { value: nodes.id, displayValue: nodes.id }
+                updatedOrderForm.Pharmacy.elementConfig.options.push(
+                        { value: nodes.pharmacyId, displayValue: nodes.pharmacyName }
                 )
-                this.setState({ParamForm: updatedParamForm});
+                this.setState({OrderForm: updatedOrderForm});
                 return true;
             });
-            this.setState({updated: true});
-            // console.log(this.state.ParamForm);
-            
+            this.setState({updated1: true});
         } );
 
+        axios.get( 'https://co321project-e273b.firebaseio.com/drivers.json' )
+        .then( response => {
+            const fetchedNodes = [];
+            for(let key in response.data){
+                fetchedNodes.push({
+                    ...response.data[key],
+                    id: key
+                });
+            }
+            this.setState({Drivers: fetchedNodes});
+            
+            this.state.Drivers.map(nodes => {
+                const updatedOrderForm = {
+                    ...this.state.OrderForm,
+                };
+                updatedOrderForm.Driver.elementConfig.options.push(
+                        { value: nodes.uid, displayValue: nodes.name }
+                )
+                this.setState({OrderForm: updatedOrderForm});
+                return true;
+            });
+            this.setState({updated2: true});
+        } );
+        
     }
 
     inputChangedHandler = (event, PostIdentifier) =>{
-        const updatedPostForm = updateObject( this.state.ParamForm, {
-            [PostIdentifier]: updateObject( this.state.ParamForm[PostIdentifier], {
+        const updatedPostForm = updateObject( this.state.OrderForm, {
+            [PostIdentifier]: updateObject( this.state.OrderForm[PostIdentifier], {
                 value: event.target.value,
-                valid: checkValidity( event.target.value, this.state.ParamForm[PostIdentifier].validation ),
+                valid: checkValidity( event.target.value, this.state.OrderForm[PostIdentifier].validation ),
                 touched: true
             } )
         } );
@@ -176,35 +125,85 @@ class Orders extends Component {
             formIsValid = updatedPostForm[inputIdentifier].valid && formIsValid;
         }
 
-        this.setState({ParamForm: updatedPostForm, formIsValid: formIsValid});
+        this.setState({OrderForm: updatedPostForm, formIsValid: formIsValid});
     }
 
     postDataHandler = (event) => {
+
         event.preventDefault();
         const formData = {};
-        var nodeID;
-        for(let formIdentifier in this.state.ParamForm ){
-            formData[formIdentifier] = this.state.ParamForm[formIdentifier].value;
+        var boxID;
+
+        var driver;
+        var driverid;
+        var pharmacy;
+        var pharmacyid;
+        var address;
+
+        for(let formIdentifier in this.state.OrderForm ){
+            formData[formIdentifier] = this.state.OrderForm[formIdentifier].value;
             
-            if( formIdentifier === 'Node' ){
-                nodeID = this.state.ParamForm[formIdentifier].value;
+            if( formIdentifier === 'BoxID' ){
+                boxID = this.state.OrderForm[formIdentifier].value;
+            }else if( formIdentifier === 'Driver' ){
+                for(let id in this.state.Drivers ){
+                    if(  this.state.Drivers[id].uid === this.state.OrderForm[formIdentifier].value ){
+                        driver = this.state.Drivers[id].name;
+                        driverid =this.state.Drivers[id].uid;
+                    }
+                }
+            }else if( formIdentifier === 'Pharmacy' ){
+                for(let id in this.state.Pharmacy ){
+                    if(  this.state.Pharmacy[id].pharmacyId === this.state.OrderForm[formIdentifier].value ){
+                        pharmacy = this.state.Pharmacy[id].pharmacyName;
+                        pharmacyid = this.state.Pharmacy[id].pharmacyId;
+                        address = this.state.Pharmacy[id].pharmacyAddress.split(" ");
+                    }
+                }
             }
         }
 
-        console.log(nodeID);
+        var res = boxID.split(" ");
+        var len = address.length;
+
+        const id = uuidv4();
+
+        const data = {
+            boxList: res,
+            distributorId: this.props.UID,
+            distributorName: this.props.name,
+            driverId: driverid,
+            driverName: driver,
+            pharmacyId: pharmacyid,
+            pharmacyName: pharmacy,
+            cityName: address[len-1],
+            randomId: id,
+            notified: false,
+            read: false,
+        };
         
-        axios.put('https://co321project-e273b.firebaseio.com/EndNodes/' + nodeID +'/Parameters.json?auth=' + this.props.tokenID ,formData)
+        axios.put('https://co321project-e273b.firebaseio.com/distributorTask/' + this.props.UID +'/ongoingDeliveries/'+ id +'.json?auth=' + this.props.tokenID, data)
             .then( response => {                
-                this.setState({submitted:true});
+                this.setState({submitted1:true});
             });
-        
+
+        axios.put('https://co321project-e273b.firebaseio.com/driverTask/' + driverid +'/ongoingDeliveries/'+ id +'.json?auth=' + this.props.tokenID, data)
+            .then( response => {                
+                this.setState({submitted2:true});
+            });
+
+        axios.put('https://co321project-e273b.firebaseio.com/pharmacyTask/' + pharmacyid +'/ongoingDeliveries/'+ id +'.json?auth=' + this.props.tokenID, data)
+            .then( response => {                
+                this.setState({submitted3:true});
+            });
+  
     }
 
     render() {
 
         let redirect = null;
         
-        if( this.state.submitted ){
+        if( this.state.submitted1 && this.state.submitted2 && this.state.submitted3 ){
             redirect = <Redirect to={"/profile"}/>
         }
 
@@ -212,12 +211,12 @@ class Orders extends Component {
         let form = <Spinner />;
         let button = null;
 
-        if( this.state.updated ){
+        if( this.state.updated1 && this.state.updated1 ){
             
-            for (let key in this.state.ParamForm) {
+            for (let key in this.state.OrderForm) {
                 formElementsArray.push({
                     id: key,
-                    config: this.state.ParamForm[key]
+                    config: this.state.OrderForm[key]
                 });
             }
             
@@ -263,7 +262,8 @@ class Orders extends Component {
 const mapStateToProps = state => {
     return {
         tokenID: state.auth.token,
-        UID: state.auth.userId
+        UID: state.auth.userId,
+        name: state.auth.username
     }
 }
 

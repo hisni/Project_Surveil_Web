@@ -9,14 +9,14 @@ import Input from '../../components/UI/Input/Input';
 import { updateObject, checkValidity } from '../../shared/utility';
 import classes from './Set.css';
 import Spinner from '../../components/UI/Spinner/Spinner'
-import { node } from 'prop-types';
+// import { node } from 'prop-types';
 
 class Set extends Component {
 
     state = {
         EndNodes: null,
         ParamForm: {
-            Node: {
+            BoxID: {
                 elementType: 'select',
                 elementConfig: {
                     options: []
@@ -149,7 +149,7 @@ class Set extends Component {
                 const updatedParamForm = {
                     ...this.state.ParamForm,
                 };
-                updatedParamForm.Node.elementConfig.options.push(
+                updatedParamForm.BoxID.elementConfig.options.push(
                         { value: nodes.id, displayValue: nodes.id }
                 )
                 this.setState({ParamForm: updatedParamForm});
@@ -186,7 +186,7 @@ class Set extends Component {
         for(let formIdentifier in this.state.ParamForm ){
             formData[formIdentifier] = this.state.ParamForm[formIdentifier].value;
             
-            if( formIdentifier === 'Node' ){
+            if( formIdentifier === 'BoxID' ){
                 nodeID = this.state.ParamForm[formIdentifier].value;
             }
         }

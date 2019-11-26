@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import classes from './Main.css';
+// import classes from './Main.css';
 import Layout from '../../hoc/Layout/Layout';
 import Login from '../../containers/Auth/Login';
 import Signup from '../../containers/Auth/Signup';
