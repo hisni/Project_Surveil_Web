@@ -4,7 +4,7 @@ import axios from 'axios';
 import Aux from '../../hoc/Auxiliary/Auxiliary';
 import classes from './Monitor.css';
 
-class Posts extends Component {
+class Monitor extends Component {
     state = {
         posts: null,
         Count:0,
@@ -172,4 +172,4 @@ class Posts extends Component {
     };
 }
 
-export default Posts;
+export default Monitor;
