@@ -14,7 +14,7 @@
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
-    color: rgb(2, 61, 32)
+    color: #22134e;
 }
 
 .ClearMargrin {
@@ -27,18 +27,18 @@
 .InputElement {
     outline: none;
     border: 1px solid #ccc;
-    background-color: rgb(0, 255, 200);
+    background-color: #b7e7ff;
     font: inherit;
     padding: 6px 10px;
     display: block;
     width: 100%;
     box-sizing: border-box;
-    color: rgb(2, 61, 32)
+    color: #22134e;
 }
 
 .InputElement:focus {
     outline: none;
-    background-color: #ccc;
+    background-color: #b7e7ff;
 }
 
 .ClearWidth {
@@ -55,12 +55,12 @@
 
 .ClearWidth:focus {
     outline: none;
-    background-color: #ccc;
+    background-color: #b7e7ff;
 }
 
 .Invalid {
     border: 1px solid red;
-    background-color: #FDA49A;
+    background-color: #ffb7b7;
 }
 
 @media (min-width: 520px) {

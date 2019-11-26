@@ -28,6 +28,7 @@ class Profile extends Component {
             <div className={classes.Profile}>
                 <div className={classes.Title}>
                     <h1>@{this.props.Name} Profile</h1>
+                    <h3>Phone No: {this.props.phone}</h3>
                 </div>
                 <div>
                     <section className={classes.ProfileMangement}>
@@ -47,25 +48,25 @@ class Profile extends Component {
             </div>
         );
 
-        if( this.props.Authority === "PHI"  ){
-            profile = (
-                <div className={classes.Profile}>
-                    <div className={classes.Title}>
-                        <h2>{this.props.Name}</h2>
-                        <h3>Public Health Inspector</h3>
-                        <h3>{this.props.District} District</h3>
-                    </div>
-                    <div className={classes.Tiles}>
-                        <Tile 
-                            title={'District Accounts'}
-                            clicked={() => this.postSelectedHandler('DA')}/>
-                        <Tile 
-                            title={'District Posts'}
-                            clicked={() => this.postSelectedHandler('DP')}/> 
-                    </div>
-                </div>
-            )
-        }
+        // if( this.props.Authority === "PHI"  ){
+        //     profile = (
+        //         <div className={classes.Profile}>
+        //             <div className={classes.Title}>
+        //                 <h2>{this.props.Name}</h2>
+        //                 <h3>Public Health Inspector</h3>
+        //                 <h3>{this.props.District} District</h3>
+        //             </div>
+        //             <div className={classes.Tiles}>
+        //                 <Tile 
+        //                     title={'District Accounts'}
+        //                     clicked={() => this.postSelectedHandler('DA')}/>
+        //                 <Tile 
+        //                     title={'District Posts'}
+        //                     clicked={() => this.postSelectedHandler('DP')}/> 
+        //             </div>
+        //         </div>
+        //     )
+        // }
      
         return (
             <AUX>
@@ -80,8 +81,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.token !== null,
         UID: state.auth.userId,
         Name: state.auth.username,
-        Authority: state.auth.Authority,
-        District: state.auth.District
+        phone: state.auth.phone,
+        // District: state.auth.District
     }
 }
 
