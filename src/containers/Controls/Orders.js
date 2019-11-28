@@ -244,7 +244,7 @@ class Orders extends Component {
                     <div className={classes.FormBG}>
                         <div className={classes.Title}>
                             {redirect}
-                            <h1>Adjust Parameters</h1>
+                            <h1>Add an Order</h1>
                         </div>
                         <div className={classes.FormEl}>
                             <form onSubmit={this.postDataHandler} >
