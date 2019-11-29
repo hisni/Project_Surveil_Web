@@ -8,12 +8,13 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId, username) => {
+export const authSuccess = (token, userId, username, phone) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
         userId: userId,
         name:username,
+        phoneNo:phone
     };
 };
 
@@ -62,7 +63,7 @@ export const authSignIn = (email, password) => {
             returnSecureToken: true
         };
         
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=APIKEY';
+        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDwULsNREL5lquusHIY2g1wjG8Pi2qL4EA';
         var dbURL = '';
 
         axios.post(url, authData)
@@ -71,7 +72,7 @@ export const authSignIn = (email, password) => {
             localStorage.setItem('token', response.data.idToken);
             localStorage.setItem('expirationDate', expirationDate);
             localStorage.setItem('userId', response.data.localId);
-            dbURL = 'https://co321project-e273b.firebaseio.com/webUsers/'+response.data.localId+'.json?auth=' + response.data.idToken; 
+            dbURL = 'https://co321project-e273b.firebaseio.com/userInfo/'+response.data.localId+'.json?auth=' + response.data.idToken; 
             dispatch(loadSigninData( dbURL, response.data.idToken, response.data.localId ));
             dispatch(checkAuthTimeout(response.data.expiresIn));
         })
@@ -131,13 +132,16 @@ export const loadSigninData = ( dbURL, idToken, localId ) => {
     
     return dispatch => {
         var username = '';
+        var phone = '';
+        
         axios.get(dbURL)
         .then(response => {
-            for(let key in response.data){
-                username = response.data[key].Username;
-            }
+            username = response.data.name;
+            phone = response.data.phone;
+
             localStorage.setItem('username', username);
-            dispatch(authSuccess(idToken, localId, username));
+            localStorage.setItem('phone', phone);
+            dispatch(authSuccess(idToken, localId, username, phone));
         })
         .catch(err => {
             dispatch(authFail(err.response.data.error));
@@ -163,8 +167,9 @@ export const authCheckState = () => {
             } else {
                 const userId = localStorage.getItem('userId');
                 const username = localStorage.getItem('username');
+                const phone = localStorage.getItem('phone');
 
-                dispatch(authSuccess(token, userId, username ));
+                dispatch(authSuccess(token, userId, username, phone ));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
             }   
         }

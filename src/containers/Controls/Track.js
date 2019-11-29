@@ -5,11 +5,11 @@ import Aux from '../../hoc/Auxiliary/Auxiliary';
 import classes from './Track.css';
 import Input from '../../components/UI/Input/Input';
 
-class Posts extends Component {
+class Track extends Component {
 
     state = {
         RelayNodes: null,
-        coordinates:[],
+        coordinates: null,
         Controls: {
             Nodes: {
                 elementType: 'select',
@@ -18,16 +18,19 @@ class Posts extends Component {
                         { value: "select", displayValue: "Select a node" }
                     ]
                 },
-                value: 'Select a node',
+                value: 'select',
                 validation: {},
                 valid: true
             }
         },
-        Count:0,
         Update:false
     }
 
     componentDidMount () {
+        // console.log("componentDidMount");
+        if( this.props.match.params.node ){
+            this.setNode( this.props.match.params.node );
+        }
 
         axios.get( 'https://co321project-e273b.firebaseio.com/RelayNodes.json' )
         .then( response => {
@@ -50,12 +53,43 @@ class Posts extends Component {
                 this.setState({Controls: updatedControls});
                 return true;
             })
-
+            // console.log(this.state.Coordinates);
         } );
+
+    }
+
+    componentDidUpdate() {        
+        if( this.props.match.params.node === 'select' && !this.state.Update ){
+            this.setNode( 'select' );
+            this.setState({Update:true});
+        }
+    }
+
+    setNode = ( initNode ) => {
+        console.log("setNode");
+        const updatedControls = {
+            ...this.state.Controls,
+            Nodes: {
+                ...this.state.Controls.Nodes,
+                value: initNode,
+                touched: true
+            }
+        };
+        this.setState({Controls: updatedControls});
+
+        var updatedCoordinates = null;
+
+        if( initNode === 'select' ){
+            updatedCoordinates = [7.2906, 80.7718];
+        }else{
+            updatedCoordinates = [this.state.RelayNodes[0].Coordinates.latitude, this.state.RelayNodes[0].Coordinates.longitude ]; 
+        }
+        this.setState({coordinates: updatedCoordinates});
+        
     }
 
     inputChangedHandler = (event, nodeIdentifier) =>{
-        this.resetCount();
+        // this.resetCount();
         const updatedControls = {
             ...this.state.Controls,
             [nodeIdentifier]: {
@@ -70,16 +104,14 @@ class Posts extends Component {
         }
     }
 
-    resetCount = () =>{
-        this.setState({Count: 0});
-    }
+    // resetCount = () =>{
+    //     this.setState({Count: 0});
+    // }
 
     render() {
 
         const filterArray = [];
         let filter = null;
-
-        console.log(this.state.Controls);
 
         if( this.state.Controls.Nodes.elementConfig.options.length ){
             
@@ -108,35 +140,40 @@ class Posts extends Component {
             );
         }
 
-        if( this.state.posts ){
-            // posts = this.state.posts.map(post => {
-            //     if( this.state.Controls.Nodes.value === 'select' ){
-            //         count = 0;
-            //         return null;
-            //     }
-            //     else{
-            //         if( post.District === this.state.Controls.Nodes.value ){
-            //             count = count+1;                        
-            //             return (
-            //                 <Post 
-            //                     key={post.id} 
-            //                     title={post.postData.Title} 
-            //                     type={post.postData.Type}
-            //                     contect={post.postData.ContactNo}
-            //                     address={post.postData.Address}
-            //                     clicked={() => this.postSelectedHandler(post.id,post.District)}/>
-            //             );
-            //         }
-            //         else{
-            //             return null;
-            //         }
-            //     }
-            // });
+        let trackMap = null;
+        if( this.state.RelayNodes ){
+            if( this.state.Controls.Nodes.value === 'select' ){
+                trackMap = <h3 style={{color: "rgb(2, 61, 32)"}}>Select a Node</h3>
+            }
+            else if( this.state.Controls.Nodes.value != null  ){
+                for(let key in this.state.RelayNodes){
+                    if( this.state.RelayNodes[key].id === this.state.Controls.Nodes.value ){
+                        const arr = [ this.state.RelayNodes[key].Coordinates.latitude, this.state.RelayNodes[key].Coordinates.longitude ];
+                        trackMap = 
+                            <ReactBingmaps 
+                                mapTypeId = {"road"}
+                                zoom = {7}
+                                bingmapKey = "AuIjk7fl6IjgdIgBsz10779RYIKHdLkzdkej9jZhJKmaJlZY093Z6CazJRjhqvVe" 
+                                center = {arr}
+                                pushPins = {[{
+                                    "location":arr,
+                                    "option":{ color: 'blue' },
+                                    "addHandler": {"type" : "click", callback: this.callBackMethod }
+                                }]}
+                                infoboxes = {[{
+                                        "location":arr,
+                                        "option":{ title: this.state.RelayNodes[key].id, description: 'Time' },
+                                        "addHandler": {"type" : "click", callback: this.callBackMethod}
+                                }]}
+                            > 
+                            </ReactBingmaps>;
+                    }
+                };
+            }else{
+                trackMap = <h3 style={{color: "rgb(2, 61, 32)"}}>Select a Node</h3>
+            }
+        };
 
-            // if( count === 0){
-            //     posts = <h3 style={{color: "rgb(2, 61, 32)"}}>No Posts Found</h3>
-            // }
-        }
 
         return(
             <Aux>
@@ -149,32 +186,14 @@ class Posts extends Component {
                             {filter}
                         </div>
                         <div className={classes.Right} >
-                            <ReactBingmaps 
-                                mapTypeId = {"road"}
-                                zoom = {7}
-                                bingmapKey = "APIKEY" 
-                                center = {[7.2906, 80.7718]}
-                                pushPins = {[{
-                                    "location":[7.2906, 80.7718],
-                                    "option":{ color: 'blue' },
-                                    "addHandler": {"type" : "click", callback: this.callBackMethod }
-                                }]}
-                                infoboxes = {[{
-                                        "location":[7.2906, 80.7718],
-                                        "option":{ title: 'RN1001', description: 'Time' },
-                                        "addHandler": {"type" : "click", callback: this.callBackMethod}
-                                }]}
-                            > 
-                            </ReactBingmaps>
+                            {trackMap}
                         </div>
                     </div>
-
                 </div>
-                
             </Aux>
         );
         
     };
 }
 
-export default Posts;
+export default Track;
